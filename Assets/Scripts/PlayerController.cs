@@ -46,7 +46,8 @@ public class PlayerController : MonoBehaviour {
 			other.gameObject.SetActive (false);
             count_batteries++;
 			SetCountText();
-		}
+            GetComponent<AudioSource>().Play();
+        }
 	}
 
 	void SetCountText()
