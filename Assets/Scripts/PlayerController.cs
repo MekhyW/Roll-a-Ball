@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 	
 	public float speed;
 	public Text countText;
 	public Text winText;
-	private Rigidbody rb;
+    private Rigidbody rb;
 	private int count_batteries;
 	private int total_batteries = 10;
+    private float wintext_time = 7.0f;
 
-	void Start ()
+    void Start ()
 	{
 		rb = GetComponent<Rigidbody>();
         count_batteries = 0;
@@ -30,7 +31,13 @@ public class PlayerController : MonoBehaviour {
             rb.position = new Vector3 (0.0f, 0.0f, 0.0f);
             rb.velocity = new Vector3 (0.0f, 0.0f, 0.0f);
         }
-	}
+        if (count_batteries >= total_batteries) {             
+			winText.text = "You Win!";
+		    wintext_time -= Time.deltaTime;
+		    if (wintext_time <= 0.0f) { SceneManager.LoadScene("MainMenu"); }
+        }
+
+    }
 
 	void OnTriggerEnter(Collider other) 
 	{
@@ -45,9 +52,5 @@ public class PlayerController : MonoBehaviour {
 	void SetCountText()
 	{
 		countText.text = "Batteries: " + (total_batteries - count_batteries).ToString();
-		if (count_batteries >= total_batteries)
-		{
-			winText.text = "You Win!";
-		}
 	}
 }

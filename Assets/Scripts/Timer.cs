@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
@@ -19,15 +18,12 @@ public class Timer : MonoBehaviour
     {
         remaining_time -= Time.deltaTime;
         UpdateTimeText();
-        if (remaining_time <= 0.0f) {
+        if (winText.text != "" && winText.text != "Too Bad...") { timeText.text = ""; }
+        else if (remaining_time <= 0.0f) {
             player.SetActive(false);
             timeText.text = "";
             winText.text = "Too Bad...";
-            if (remaining_time <= -10.0f)
-            {
-                SceneManager.LoadScene("MainMenu");
-            }
-            
+            if (remaining_time <= -7.0f) { SceneManager.LoadScene("MainMenu"); }
         }
     }
 
